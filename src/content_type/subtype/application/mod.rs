@@ -1,4 +1,5 @@
 mod application_subtype_from_str;
+mod string_from_application_subtype;
 
 #[derive(Debug, Default, Clone)]
 pub enum ApplicationSubtype {
