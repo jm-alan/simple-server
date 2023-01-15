@@ -1,15 +1,12 @@
+use crate::content_type::ContentType;
+
 #[derive(Debug, Default, Clone)]
-pub enum HttpBody {
-  #[default]
-  None,
-  Html(String),
-  Json(String),
+pub struct HttpBody {
+  content_type: ContentType,
 }
 
 impl ToString for HttpBody {
   fn to_string(&self) -> String {
-    match self {
-      Self::None => "".to_string(),
-    }
+    todo!()
   }
 }
