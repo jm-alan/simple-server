@@ -9,9 +9,9 @@ pub enum ContentType {
   Audio(AudioSubtype),
   Image(ImageSubtype),
   Video(VideoSubtype),
-  Font(FontSubtype),
-  Model(ModelSubtype),
-  Example(ExampleSubtype),
+  // Font(FontSubtype),
+  // Model(ModelSubtype),
+  // Example(ExampleSubtype),
 }
 
 impl From<ContentType> for String {
@@ -32,16 +32,17 @@ impl From<ContentType> for String {
       }
       ContentType::Video(video_subtype) => {
         format!("video/{}", video_subtype.to_string()).to_string()
-      }
-      ContentType::Font(font_subtype) => {
-        format!("font/{}", font_subtype.to_string()).to_string()
-      }
-      ContentType::Model(model_subtype) => {
-        format!("model/{}", model_subtype.to_string()).to_string()
-      }
-      ContentType::Example(example_subtype) => {
-        format!("example/{}", example_subtype.to_string()).to_string()
-      }
+      } //
+        // ContentType::Font(font_subtype) => {
+        //   format!("font/{}", font_subtype.to_string()).to_string()
+        // }
+        // ContentType::Model(model_subtype) => {
+        //   format!("model/{}", model_subtype.to_string()).to_string()
+        // }
+        // ContentType::Example(example_subtype) => {
+        // format!("example/{}", example_subtype.to_string()).to_string()
+        // }
+        //
     }
   }
 }
