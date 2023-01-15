@@ -52,3 +52,9 @@ impl From<ApplicationSubtype> for String {
     }
   }
 }
+
+impl ToString for ApplicationSubtype {
+  fn to_string(&self) -> String {
+    self.clone().into()
+  }
+}
