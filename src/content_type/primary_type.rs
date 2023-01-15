@@ -1,8 +1,10 @@
-#[derive(Debug, Default, Clone, Copy)]
+use super::subtype::ApplicationSubtype;
+
+#[derive(Debug, Default, Clone)]
 pub enum ContentType {
   #[default]
   None,
-  Application,
+  Application(ApplicationSubtype),
   Text,
   Audio,
   Font,
