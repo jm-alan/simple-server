@@ -1,4 +1,4 @@
-use super::subtype::ApplicationSubtype;
+use super::subtype::*;
 
 #[derive(Debug, Default, Clone)]
 pub enum ContentType {
