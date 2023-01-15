@@ -1,5 +1,4 @@
 use regex::Regex;
-use std::str::FromStr;
 
 #[derive(Debug, Default, Clone)]
 pub enum ApplicationSubtype {
@@ -32,17 +31,45 @@ pub enum ApplicationSubtype {
   Tar,
   Xml,
   XHtml,
+  Invalid,
   Other(String),
 }
 
-impl FromStr for ApplicationSubtype {
-  type Err = String;
-
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
+impl From<&str> for ApplicationSubtype {
+  fn from(s: &str) -> Self {
     match s {
-      "octet-stream" => Ok(Self::OctetStream),
-      "application-json" => Ok(Self::OctetStream),
-      "wasm" => Ok(Self::Wasm),
+      "octet-stream" => Self::OctetStream,
+      "json" => Self::Json,
+      "ld+json" => Self::JsonLd,
+      "wasm" => Self::Wasm,
+      "zip" => Self::Zip,
+      "x-7z-compressed" => Self::SevenZip,
+      "x-bzip" => Self::BZip,
+      "x-bzip2" => Self::BZip2,
+      "gzip" => Self::GZip,
+      "msword" => Self::Doc,
+      "vnd.openxmlformats-officedocument.wordprocessingml.document" => {
+        Self::DocX
+      }
+      "vnd.ms-excel" => Self::Xls,
+      "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => Self::XlsX,
+      "vnd.ms-powerpoint" => Self::Ppt,
+      "vnd.openxmlformats-officedocument.presentationml.presentation" => {
+        Self::PptX
+      }
+      "java-archive" => Self::Jar,
+      "vnd.apple.installer+xml" => Self::AppleInstaller,
+      "vnd.oasis.opendocument.text" => Self::ODText,
+      "vnd.oasis.opendocument.spreadsheet" => Self::ODSheet,
+      "vnd.oasis.opendocument.presentation" => Self::ODPres,
+      "ogg" => Self::Ogg,
+      "pdf" => Self::Pdf,
+      "vnd.rar" => Self::Rar,
+      "x-sh" => Self::Shell,
+      "rtf" => Self::Rtf,
+      "x-tar" => Self::Tar,
+      "xml" => Self::Xml,
+      "xhtml+xml" => Self::XHtml,
       subtype => {
         let raw_pattern =
           r#"^[^\u0000-\u0008\u000A-\u001F\u007F\(\)\[\]\{\}\\:@<>?"]$"#;
@@ -50,9 +77,9 @@ impl FromStr for ApplicationSubtype {
           panic!("Failed to create regex pattern from rawstring literal: {raw_pattern}");
         };
         if pattern.is_match(subtype) {
-          Ok(Self::Other(subtype.to_string()))
+          Self::Other(subtype.to_string())
         } else {
-          Err(format!("application/{subtype} is not a valid MIME type because it contains invalid characters"))
+          Self::Invalid
         }
       }
     }
