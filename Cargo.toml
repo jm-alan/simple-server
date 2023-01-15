@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 env-loader = { git = "https://github.com/jm-alan/env-loader" }
+regex = "1.7.1"
