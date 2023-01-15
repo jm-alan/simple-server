@@ -10,8 +10,8 @@ impl From<TextSubtype> for String {
       TextSubtype::Csv => "csv".to_string(),
       TextSubtype::Calendar => "calendar".to_string(),
       TextSubtype::LegacyXml => "xml".to_string(),
-      TextSubtype::Invalid => {
-        panic!("Attempt to stringify invalid text subtype")
+      TextSubtype::Unsupported => {
+        panic!("Attempt to stringify unsupported text subtype")
       }
     }
   }

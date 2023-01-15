@@ -12,5 +12,5 @@ pub enum AudioSubtype {
   Webm,
   ThreeGpp,
   ThreeGpp2,
-  Invalid,
+  Unsupported,
 }

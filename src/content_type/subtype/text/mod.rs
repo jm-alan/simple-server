@@ -11,5 +11,5 @@ pub enum TextSubtype {
   Csv,
   Calendar,
   LegacyXml,
-  Invalid,
+  Unsupported,
 }

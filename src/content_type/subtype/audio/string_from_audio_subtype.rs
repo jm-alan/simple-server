@@ -12,8 +12,8 @@ impl From<AudioSubtype> for String {
       AudioSubtype::Webm => "webm".to_string(),
       AudioSubtype::ThreeGpp => "3gpp".to_string(),
       AudioSubtype::ThreeGpp2 => "3gpp2".to_string(),
-      AudioSubtype::Invalid => {
-        panic!("Attempt to stringify invalid audio subtype")
+      AudioSubtype::Unsupported => {
+        panic!("Attempt to stringify unsupported audio subtype")
       }
     }
   }

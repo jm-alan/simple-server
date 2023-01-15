@@ -10,7 +10,7 @@ impl From<&str> for TextSubtype {
       "csv" => Self::Csv,
       "calendar" => Self::Calendar,
       "xml" => Self::LegacyXml,
-      _ => Self::Invalid,
+      _ => Self::Unsupported,
     }
   }
 }

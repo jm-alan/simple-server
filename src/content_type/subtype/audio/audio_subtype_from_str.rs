@@ -12,7 +12,7 @@ impl From<&str> for AudioSubtype {
       "webm" => Self::Webm,
       "3gpp" => Self::ThreeGpp,
       "3gpp2" => Self::ThreeGpp2,
-      _ => Self::Invalid,
+      _ => Self::Unsupported,
     }
   }
 }
