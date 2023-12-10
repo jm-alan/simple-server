@@ -1,6 +1,7 @@
 use super::Response;
 
 impl ToString for Response {
+  #[inline(always)]
   fn to_string(&self) -> String {
     format!(
       "{} {}\r\n\r\n\r\n{}\r\n",
