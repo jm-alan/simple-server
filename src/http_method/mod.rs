@@ -27,3 +27,31 @@ impl ToString for HttpMethod {
     }
   }
 }
+
+impl From<&str> for HttpMethod {
+  fn from(value: &str) -> Self {
+    match value {
+      "HEAD" => Self::HEAD,
+      "POST" => Self::POST,
+      "PUT" => Self::PUT,
+      "DELETE" => Self::DELETE,
+      "CONNECT" => Self::CONNECT,
+      "OPTIONS" => Self::OPTIONS,
+      "TRACE" => Self::TRACE,
+      "PATCH" => Self::PATCH,
+      _ => Self::default(),
+    }
+  }
+}
+
+impl From<String> for HttpMethod {
+  fn from(value: String) -> Self {
+    value.as_str().into()
+  }
+}
+
+impl From<&String> for HttpMethod {
+  fn from(value: &String) -> Self {
+    value.as_str().into()
+  }
+}
