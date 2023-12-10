@@ -7,7 +7,7 @@ impl ToString for Response {
       self
         .headers
         .iter()
-        .map(|[key, val]| format!("{key}: {val}\r\n"))
+        .map(|(key, val)| format!("{key}: {val}\r\n"))
         .collect::<Vec<_>>()
         .join("")
     } else {
