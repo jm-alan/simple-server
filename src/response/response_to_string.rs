@@ -15,7 +15,7 @@ impl ToString for Response {
     };
 
     let formatted_body = match self.body {
-      Some(body) => body.to_string(),
+      Some(ref body) => body.to_string(),
       _ => "\r\n".to_string(),
     };
 
