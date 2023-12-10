@@ -3,15 +3,15 @@ use super::Response;
 impl ToString for Response {
   #[inline(always)]
   fn to_string(&self) -> String {
-    let formatted_headers = if self.headers.len() > 0 {
+    let formatted_headers = if self.headers.is_empty() {
+      "".into()
+    } else {
       self
         .headers
         .iter()
         .map(|(key, val)| format!("{key}: {val}\r\n"))
         .collect::<Vec<_>>()
         .join("")
-    } else {
-      "".into()
     };
 
     let formatted_body = match self.body {
