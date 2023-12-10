@@ -1,7 +1,7 @@
 mod string_from_text_subtype;
 mod text_subtype_from_str;
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Copy)]
 pub enum TextSubtype {
   #[default]
   Plain,
