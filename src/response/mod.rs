@@ -1,8 +1,10 @@
 mod http_body;
 mod response_to_string;
+mod status_line;
 mod status_reason;
 
-use super::http_version::HttpVersion;
+use crate::{http_version::HttpVersion, types::Headers};
+
 use http_body::HttpBody;
 use status_reason::StatusReason;
 
@@ -10,7 +12,7 @@ use status_reason::StatusReason;
 pub struct Response {
   http_version: HttpVersion,
   status_reason: StatusReason,
-  headers: Vec<(String, String)>,
+  headers: Headers,
   body: Option<HttpBody>,
 }
 
