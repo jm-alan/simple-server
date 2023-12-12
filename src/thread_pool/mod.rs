@@ -21,12 +21,12 @@ impl ThreadPool {
     assert!(size > 0);
 
     let (sender, receiver) = mpsc::channel::<TcpStream>();
-    let arc_req_guard = Arc::new(Mutex::new(receiver));
+    let arc_rec_guard = Arc::new(Mutex::new(receiver));
 
     let mut threads = Vec::with_capacity(size);
 
     for _ in 0..size {
-      let cloned_rec = arc_req_guard.clone();
+      let cloned_rec = arc_rec_guard.clone();
       threads.push(thread::spawn(move || loop {
         let Ok(rec_guard) = cloned_rec.lock() else {
           continue;
