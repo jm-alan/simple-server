@@ -12,7 +12,15 @@ pub enum HttpMethod {
   PATCH,
 }
 
+impl HttpMethod {
+  #[inline(always)]
+  pub fn permits_body(&self) -> bool {
+    !matches!(self, Self::GET | Self::HEAD | Self::OPTIONS | Self::TRACE)
+  }
+}
+
 impl ToString for HttpMethod {
+  #[inline(always)]
   fn to_string(&self) -> String {
     match self {
       Self::GET => "GET".to_string(),
@@ -29,6 +37,7 @@ impl ToString for HttpMethod {
 }
 
 impl From<&str> for HttpMethod {
+  #[inline(always)]
   fn from(value: &str) -> Self {
     match value {
       "HEAD" => Self::HEAD,
@@ -45,12 +54,14 @@ impl From<&str> for HttpMethod {
 }
 
 impl From<String> for HttpMethod {
+  #[inline(always)]
   fn from(value: String) -> Self {
     value.as_str().into()
   }
 }
 
 impl From<&String> for HttpMethod {
+  #[inline(always)]
   fn from(value: &String) -> Self {
     value.as_str().into()
   }
