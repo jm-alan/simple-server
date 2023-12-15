@@ -7,7 +7,7 @@ mod status_reason;
 use crate::{http_version::HttpVersion, types::Headers};
 
 use http_body::HttpBody;
-use status_reason::StatusReason;
+pub use status_reason::StatusReason;
 
 #[derive(Debug, Clone)]
 pub struct Response {
