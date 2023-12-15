@@ -12,7 +12,7 @@ pub fn parse_body(
     return None;
   };
 
-  init.reserve_exact(init.len() - content_length);
+  init.reserve_exact(content_length - init.len());
 
   while init.len() < init.capacity() {
     let Ok(rolling_body) = reader.fill_buf() else {
