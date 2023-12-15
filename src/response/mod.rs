@@ -1,4 +1,5 @@
 mod http_body;
+mod response_from_status_reason;
 mod response_to_string;
 mod status_line;
 mod status_reason;
@@ -31,14 +32,5 @@ impl Response {
   #[inline(always)]
   pub fn as_bytes(&self) -> Vec<u8> {
     self.to_string().into_bytes()
-  }
-
-  #[inline(always)]
-  pub fn bad_request() -> Self {
-    Self {
-      http_version: HttpVersion::Modern,
-      status_reason: StatusReason::BadRequest,
-      ..Default::default()
-    }
   }
 }
