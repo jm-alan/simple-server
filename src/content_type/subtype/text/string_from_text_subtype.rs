@@ -19,6 +19,6 @@ impl From<TextSubtype> for String {
 
 impl ToString for TextSubtype {
   fn to_string(&self) -> String {
-    self.clone().into()
+    (*self).into()
   }
 }
