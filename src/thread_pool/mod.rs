@@ -8,12 +8,15 @@ use std::{
   thread,
 };
 
-use crate::{request::Request, response::Response};
+use crate::{
+  request::Request,
+  response::{Response, StatusReason},
+};
 
 pub struct ThreadPool {
   size: usize,
   sender: mpsc::Sender<TcpStream>,
-  threads: Vec<thread::JoinHandle<()>>,
+  handles: Vec<thread::JoinHandle<()>>,
 }
 
 impl ThreadPool {
@@ -23,11 +26,11 @@ impl ThreadPool {
     let (sender, receiver) = mpsc::channel::<TcpStream>();
     let arc_rec_guard = Arc::new(Mutex::new(receiver));
 
-    let mut threads = Vec::with_capacity(size);
+    let mut handles = Vec::with_capacity(size);
 
     for _ in 0..size {
       let cloned_rec = arc_rec_guard.clone();
-      threads.push(thread::spawn(move || loop {
+      handles.push(thread::spawn(move || loop {
         let Ok(rec_guard) = cloned_rec.lock() else {
           continue;
         };
@@ -38,19 +41,34 @@ impl ThreadPool {
 
         drop(rec_guard);
 
-        let request = Request::from_tcp(&stream);
+        let Some(request) = Request::from_tcp(&stream) else {
+          match stream
+            .write_all(&Response::from(StatusReason::BadRequest).as_bytes())
+          {
+            Ok(_) => {
+              println!("Successfully responded to bad request");
+            }
+            Err(err) => {
+              println!(
+                "Encountered error while responding to request {:#?}",
+                err
+              );
+            }
+          };
+          return;
+        };
 
         println!("{:#?}", request);
 
-        match stream.write_all(&Response::default().as_bytes()) {
+        match stream.write_all(&Response::from(StatusReason::Ok).as_bytes()) {
           Ok(_) => {
-            // println!("Successfully responded with {}", response)
+            println!("Successfully responded OK")
           }
-          Err(_) => {
-            // println!(
-            //   "While responding to request {:#?}, encountered error {:#?}",
-            //   request, err
-            // );
+          Err(err) => {
+            println!(
+              "Encountered error while responding to request {:#?}",
+              err
+            );
           }
         };
       }));
@@ -59,7 +77,7 @@ impl ThreadPool {
     Self {
       size,
       sender,
-      threads,
+      handles,
     }
   }
 
