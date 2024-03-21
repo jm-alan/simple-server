@@ -1,10 +1,10 @@
 use crate::{http_method::HttpMethod, http_version::HttpVersion};
 
 #[derive(Debug, Clone)]
-pub(crate) struct StartLine {
-  pub(crate) method: HttpMethod,
-  pub(crate) uri: String,
-  pub(crate) http_version: HttpVersion,
+pub struct StartLine {
+  pub method: HttpMethod,
+  pub uri: String,
+  pub http_version: HttpVersion,
 }
 
 impl StartLine {
